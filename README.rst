@@ -3,9 +3,9 @@
         :target: https://pypi.org/project/safe-security-logger/
 
 
-.. image:: https://img.shields.io/github/workflow/status/deepak-sreekumar/safe-security-logger/publish
+.. image:: https://img.shields.io/github/workflow/status/Safe-Security/py-logger/publish
     :alt: Built Status
-    :target: https://github.com/deepak-sreekumar/safe-security-logger/actions/workflows/publish.yml
+    :target: https://github.com/Safe-Security/py-logger/actions/workflows/publish.yml
 
 
 |
