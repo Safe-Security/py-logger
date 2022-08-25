@@ -5,7 +5,7 @@ import time
 from pythonjsonlogger import jsonlogger
 
 __author__ = "deepak.s@safe.security"
-__copyright__ = "deepak.s@safe.security"
+__copyright__ = "Safe Security"
 __license__ = "MIT"
 
 
