@@ -25,7 +25,7 @@ Installation
 
 ::
 
-    pip install -i https://test.pypi.org/simple/ safe-security-logger
+    pip install safe-security-logger
 
 
 ============
