@@ -19,6 +19,7 @@ concurrency:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    if: "!startsWith(github.event.head_commit.message, 'bump: version')"
     outputs:
       wheel-distribution: ${{ steps.wheel-distribution.outputs.path }}
     steps:
@@ -42,6 +43,7 @@ jobs:
 
   test:
     needs: prepare
+    if: "!startsWith(github.event.head_commit.message, 'bump: version')"
     strategy:
       matrix:
         python:
@@ -74,3 +76,18 @@ jobs:
           github-token: ${{ secrets.github_token }}
           flag-name: ${{ matrix.platform }} - py${{ matrix.python }}
           parallel: true
+  bump-version:
+    needs: test
+    if: "startsWith(github.event.head_commit.message, 'bump(trigger):')"
+    runs-on: ubuntu-latest
+    name: "Bump version and create changelog with commitizen"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          token: "${{ secrets.PERSONAL_ACCESS_TOKEN }}"
+          fetch-depth: 0
+      - name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
