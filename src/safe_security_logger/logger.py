@@ -14,6 +14,7 @@ def getLogger(name):
 
     # Logs will be written to console
     console_handler = logging.StreamHandler(sys.stdout)
+
     formatter = jsonlogger.JsonFormatter(
         "%(asctime)s %(levelname)s %(message)s %(name)s %(module)s %(funcName)s ",
         rename_fields={
@@ -23,6 +24,7 @@ def getLogger(name):
             "name": "loggerName",
         },
     )
+
     # Use UTC time
     formatter.converter = time.gmtime
     console_handler.setFormatter(formatter)
