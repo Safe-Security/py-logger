@@ -20,7 +20,7 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
             log_record["serviceName"] = self.service_name
 
 
-def getLogger(name, service_name=None):
+def getLogger(name, service_name=None, level=logging.INFO):
     logger = logging.getLogger(name)
 
     # Logs will be written to console
@@ -42,6 +42,6 @@ def getLogger(name, service_name=None):
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-    # default level would be INFO
-    logger.setLevel(logging.INFO)
+    # default level would be INFO if level is not provided
+    logger.setLevel(level)
     return logger
