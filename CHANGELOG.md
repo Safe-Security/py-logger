@@ -1,3 +1,9 @@
+## v1.3.0 (2022-09-26)
+
+### Feat
+
+- **logger**: Added support to provide multiple handlers during init (#5)
+
 ## v1.2.0 (2022-09-26)
 
 ### Feat
