@@ -11,16 +11,20 @@ __license__ = "MIT"
 # Adding custom logger to support additional default field such as serviceName
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
     def __init__(self, *args, **kwargs):
-        self.service_name = kwargs.pop("service_name", None)
+        self.service = kwargs.pop("service", None)
         super().__init__(*args, **kwargs)
 
     def add_fields(self, log_record, record, message_dict):
-        super(CustomJsonFormatter, self).add_fields(log_record, record, message_dict)
-        if (not log_record.get("serviceName")) and self.service_name:
-            log_record["serviceName"] = self.service_name
+        super().add_fields(log_record, record, message_dict)
+        if (not log_record.get("service")) and self.service:
+            log_record["service"] = self.service
+        # Value of "level" field is changed to lower case and "warning" is changed to "warn" to keep the values in parity with the npm package.
+        log_record["level"] = (
+            log_record["level"].lower() if log_record["level"] != "WARNING" else "warn"
+        )
 
 
-def getLogger(name, service_name=None, level=logging.INFO):
+def getLogger(name, service=None, level=logging.INFO):
     logger = logging.getLogger(name)
 
     # Logs will be written to console
@@ -34,7 +38,7 @@ def getLogger(name, service_name=None, level=logging.INFO):
             "funcName": "functionName",
             "name": "loggerName",
         },
-        service_name=service_name,
+        service=service,
     )
 
     # Use UTC time
