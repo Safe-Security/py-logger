@@ -18,10 +18,6 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
         super().add_fields(log_record, record, message_dict)
         if (not log_record.get("service")) and self.service:
             log_record["service"] = self.service
-        # Value of "level" field is changed to lower case and "warning" is changed to "warn" to keep the values in parity with the npm package.
-        log_record["level"] = (
-            log_record["level"].lower() if log_record["level"] != "WARNING" else "warn"
-        )
 
 
 def getLogger(name, service=None, level=logging.INFO):
