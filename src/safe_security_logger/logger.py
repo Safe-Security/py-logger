@@ -20,11 +20,9 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
             log_record["service"] = self.service
 
 
-def getLogger(name, service=None, level=logging.INFO):
-    logger = logging.getLogger(name)
+def getLogger(name, service=None, level=logging.INFO, handlers=[]):
 
-    # Logs will be written to console
-    console_handler = logging.StreamHandler(sys.stdout)
+    logger = logging.getLogger(name)
 
     formatter = CustomJsonFormatter(
         "%(asctime)s %(levelname)s %(message)s %(name)s %(module)s %(funcName)s",
@@ -36,11 +34,16 @@ def getLogger(name, service=None, level=logging.INFO):
         },
         service=service,
     )
-
     # Use UTC time
     formatter.converter = time.gmtime
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
+
+    # console handler would be added by default
+    console_handler = logging.StreamHandler(sys.stdout)
+    handlers.append(console_handler)
+
+    for handler in handlers:
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
 
     # default level would be INFO if level is not provided
     logger.setLevel(level)
