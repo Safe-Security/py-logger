@@ -1,3 +1,9 @@
+## v1.2.0 (2022-09-26)
+
+### Feat
+
+- **logger**: renamed serviceName field to service (#4)
+
 ## v1.1.0 (2022-09-23)
 
 ### Feat
