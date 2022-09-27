@@ -1,3 +1,9 @@
+## v1.4.0 (2022-09-27)
+
+### Feat
+
+- **logger**: added support for additional fields in logger init (#6)
+
 ## v1.3.0 (2022-09-26)
 
 ### Feat
