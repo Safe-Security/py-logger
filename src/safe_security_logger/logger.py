@@ -25,7 +25,7 @@ def getLogger(name, service=None, level=logging.INFO, handlers=[]):
     logger = logging.getLogger(name)
 
     formatter = CustomJsonFormatter(
-        "%(asctime)s %(levelname)s %(message)s %(name)s %(module)s %(funcName)s",
+        "%(asctime)s %(levelname)s %(message)s %(name)s %(module)s %(funcName)s %(lineno)d",
         rename_fields={
             "levelname": "level",
             "asctime": "timestamp",
