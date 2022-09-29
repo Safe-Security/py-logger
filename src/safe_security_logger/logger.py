@@ -23,7 +23,7 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
             if (not log_record.get(key)) and value:
                 log_record[key] = value
 
-        # all fields other than the DEFAULT_FIELDS would be moved to the metadata field to maintain consistency with NPM package
+        # all fields other than the root level fields would be moved to the metadata field to maintain consistency with NPM package
         metadata = {}
         log_record_copy = log_record.copy()
         for key, value in log_record_copy.items():
