@@ -1,3 +1,10 @@
+## v1.5.0 (2022-09-29)
+
+### Feat
+
+- **logger**: added manual trigger and restrict access (#8)
+- **logger**: added line number to logs (#7)
+
 ## v1.4.0 (2022-09-27)
 
 ### Feat
