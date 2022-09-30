@@ -1,3 +1,9 @@
+## v1.6.0 (2022-09-30)
+
+### Feat
+
+- **logger**: aded support to move additional fields to metadata (#9)
+
 ## v1.5.0 (2022-09-29)
 
 ### Feat
