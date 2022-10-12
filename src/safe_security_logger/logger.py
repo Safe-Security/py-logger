@@ -8,7 +8,7 @@ __author__ = "deepak.s@safe.security"
 __copyright__ = "Safe Security"
 __license__ = "MIT"
 
-ROOT_LEVEL_FIELDS = ["level", "service", "timestamp", "type", "message"]
+ROOT_LEVEL_FIELDS = ["level", "service", "timestamp", "type", "message", "error"]
 
 # Adding custom logger to support additional default field such as serviceName
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
@@ -22,6 +22,11 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
         for key, value in self.additional_fields.items():
             if (not log_record.get(key)) and value:
                 log_record[key] = value
+
+        # While using logger.exception inside except block, the stack trace would be added to exc_info field
+        # Porting that information to "error" field to maintain consistency with NPM package
+        if "error" not in log_record and "exc_info" in log_record:
+            log_record["error"] = log_record.pop("exc_info")
 
         # all fields other than the root level fields would be moved to the metadata field to maintain consistency with NPM package
         metadata = {}
