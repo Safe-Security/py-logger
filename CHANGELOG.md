@@ -1,3 +1,9 @@
+## v1.7.0 (2022-10-12)
+
+### Feat
+
+- **logger**: add support for stack trace (#13)
+
 ## v1.6.0 (2022-09-30)
 
 ### Feat
