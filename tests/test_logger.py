@@ -1,7 +1,9 @@
 # built-ins
+import json
 import logging
-import sys
 import typing
+import unittest
+import unittest.mock as mock
 
 # third party
 import pytest
@@ -122,73 +124,55 @@ class TestGetLoggerConfigurations:
         assert get_handler_names(logr) == handler_names
 
 
-@pytest.mark.usefixtures("get_safe_security_logger", "capture_stdout_output")
-class TestGetLoggerResults:
+class TestGetLoggerResults(unittest.TestCase):
     """
-    This test class will test the getLogger function inside
-    src.safe_security_logger.logger.py
-
-    getLogger creates the logger.
-
-    In this test class,
-        - We make sure the logger behaves the way we want it to.
-        - By testing the actual results.
-        - We will rely heavily on monkeypatching to capture output results.
-
-    Author: Namah Shrestha
+    This test class uses unittest.
+    Just to mock the stdout.write.
+    And to assert that stdout.write
+    was called with the expected output.
     """
 
-    def test_setup_is_working(self) -> None:
-        """
-        This test function is written to assure that the fixtures are working fine.
-        - The logger is created which means get_safe_security_logger
-          fixture is working.
-        - `fake_write` in `sys.stdout.write` means that, sys.stdout.write
-          has been successfully mocked.
-        - `fake_write` in `builtins.open` means that,
-            io.open has been succesfully mocked.
+    def setUp(self) -> None:
+        self.streamlogr: logging.Logger = logger.getLogger("test-stream-logger")
 
-        Author: Namah Shrestha
+    def compare_while_ignoring(
+        self, first: dict, second: dict, ignore_keys: list = []
+    ) -> bool:
         """
-        assert self.logger.name == "test-safe-logger"
-        assert "fake_write" in str(sys.stdout.write)
-        # uncomment if you have monkeypatched io.open
-        # assert 'fake_write' in str(io.open)
+        Function compares each key of first and second dictionaries.
+        It will ignore keys that are specified in the ignore_keys list.
+        """
+        for key, value in first.items():
+            if key in ignore_keys:
+                continue
+            if key not in second:
+                return False
+            if value != second[key]:
+                return False
+        return True
 
-    @pytest.mark.parametrize(
-        "inputstr, extra, expected_output",
-        [
-            (
-                "Hello World",
-                {"text": "world"},
-                {
-                    "timestamp": "2022-10-24 06:18:11,710",
-                    "level": "INFO",
-                    "message": "Hello",
-                    "type": "application",
-                    "metadata": {
-                        "loggerName": "awesome-logger",
-                        "module": "<stdin>",
-                        "functionName": "<module>",
-                        "lineno": 1,
-                    },
-                },
-            )
-        ],
-    )
-    def test_results_for_streaming_handler(
-        self, inputstr: typing.Any, extra: dict, expected_output: dict
-    ) -> None:
+    @mock.patch("sys.stdout.write")
+    def test_results_for_streaming_handler(self, fake_write) -> None:
         """
-                This test will test the output of the streaming handler log.
-                With various input configurations.
-
-                Current Issue:
-                    - Unable to capture logs from sys.stdout.
-                    - StreamHandler should be writing to sys.stdout.
-                    - But monkeypatching sys.stdout is not working.
-                    - If this happens many times, we might go with a simple
-                      unittest method.
-        s
-                Author: Namah Shrestha
+        Here we test the actual result of the log
+        with the expected output.
         """
+        input: str = "asd"
+        expected_output: dict = {
+            "timestamp": "2022-10-29 12:10:33,699",
+            "level": "INFO",
+            "message": "asd",
+            "type": "application",
+            "metadata": {
+                "loggerName": "test-stream-logger",
+                "module": "test_logger",
+                "functionName": "test_results_for_streaming_handler",
+                "lineno": 173,
+            },
+        }
+        self.streamlogr.info(input)
+        actual_output: dict = json.loads(fake_write.call_args_list[0][0][0])
+        result: bool = self.compare_while_ignoring(
+            expected_output, actual_output, ignore_keys=["timestamp"]
+        )
+        self.assertEqual(result, True)
