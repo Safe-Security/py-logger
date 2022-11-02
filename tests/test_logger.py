@@ -86,7 +86,7 @@ class TestGetLoggerConfigurations:
             ([logging.FileHandler("dummy_file.log")], {"StreamHandler", "FileHandler"}),
         ],
     )
-    def test_handlers(self, handlers_input: list, handler_names: set[str]) -> None:
+    def test_handlers(self, handlers_input: list, handler_names: set) -> None:
         """
         Theory:
         -------
