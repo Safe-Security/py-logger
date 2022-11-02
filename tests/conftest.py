@@ -5,6 +5,9 @@
     Read more about conftest.py under:
     - https://docs.pytest.org/en/stable/fixture.html
     - https://docs.pytest.org/en/stable/writing_plugins.html
+
+    By convention storing fixutres in this file allows the fixture
+    to be accessed by all the modules within the test package.
 """
 
 # import pytest
