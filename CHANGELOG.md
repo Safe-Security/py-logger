@@ -1,3 +1,9 @@
+## v1.8.0 (2025-02-19)
+
+### Feat
+
+- **logger**: add support for tenantId and requestId (#14)
+
 ## v1.7.0 (2022-10-12)
 
 ### Feat
