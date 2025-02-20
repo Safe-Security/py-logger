@@ -12,6 +12,5 @@ version_scheme = "no-guess-dev"
 pipfile_deprecated_finder = [
     "valid-entry",
     "another_valid_entry",
-    "invalid_entry",
     "yet.another-valid_entry"
 ]
