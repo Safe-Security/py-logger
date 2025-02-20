@@ -35,7 +35,7 @@ jobs:
         id: wheel-distribution
         run: echo "::set-output name=path::$(ls dist/*.whl)"
       - name: Store the distribution files for use in other stages
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-distribution-files
           path: dist/
@@ -60,7 +60,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Retrieve pre-built distribution files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with: { name: python-distribution-files, path: dist/ }
       - name: Run tests
         run: >-
