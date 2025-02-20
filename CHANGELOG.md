@@ -2,7 +2,7 @@
 
 ### Feat
 
-- **logger**: add support for tenantId and requestId (#14)
+- **logger**: add support for tenantId and requestId (#15)
 
 ## v1.7.0 (2022-10-12)
 
