@@ -8,7 +8,7 @@ __author__ = "deepak.s@safe.security"
 __copyright__ = "Safe Security"
 __license__ = "MIT"
 
-ROOT_LEVEL_FIELDS = ["level", "service", "timestamp", "type", "message", "error"]
+ROOT_LEVEL_FIELDS = ["level", "service", "timestamp", "type", "message", "error", "tenantId", "requestId"]
 
 # Adding custom logger to support additional default field such as serviceName
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
