@@ -15,7 +15,7 @@ repos:
     - --fix=lf
     id: mixed-line-ending
   repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.1.0
+  rev: v4.5.0
 - hooks:
   - args:
     - --in-place
@@ -23,17 +23,17 @@ repos:
     - --remove-unused-variables
     id: autoflake
   repo: https://github.com/myint/autoflake
-  rev: v1.4
+  rev: v2.2.1
 - hooks:
   - id: isort
   repo: https://github.com/pycqa/isort
-  rev: 5.10.1
+  rev: 5.13.2
 - hooks:
   - id: black
     language_version: python3
   repo: https://github.com/psf/black
-  rev: stable
+  rev: 24.2.0
 - hooks:
   - id: commitizen
   repo: https://github.com/commitizen-tools/commitizen
-  rev: v2.32.2
+  rev: v3.13.0
